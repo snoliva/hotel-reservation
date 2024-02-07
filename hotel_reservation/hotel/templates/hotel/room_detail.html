@@ -1,0 +1,42 @@
+<!-- En tu archivo reservations/room_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Detalles de Habitación{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Detalles de Habitación</h1>
+    <p>Número de Habitación: {{ room.room_number }}</p>
+    <p>Tipo de Habitación: {{ room.room_type }}</p>
+    <a href="{% url 'hotel:room_update' room.pk %}" class="btn btn-info">Modificar Habitación</a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
+        Eliminar Habitación
+    </button>
+    <a href="{% url 'hotel:index' %}" class="btn btn-secondary">Volver</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar la habitación "{{ room.room_number }}"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form method="post" action="{% url 'hotel:room_delete' room.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

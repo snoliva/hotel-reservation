@@ -1,0 +1,34 @@
+<!-- En tu archivo add_room.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Agregar Habitación{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Agregar Habitación</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_room_number">Número de Habitación:</label>
+            <input type="text" class="form-control {% if form.room_number.errors %}is-invalid{% endif %}" id="id_room_number" name="room_number" value="{{ form.room_number.value }}" required>
+            {% for error in form.room_number.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="id_room_type">Tipo de Habitación:</label>
+            <select class="form-control" id="id_room_type" name="room_type" required>
+                <option value="Individual">Individual</option>
+                <option value="Doble">Doble</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Habitación</button>
+    </form>
+</div>
+{% endblock %}

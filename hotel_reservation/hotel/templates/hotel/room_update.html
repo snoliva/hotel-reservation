@@ -1,0 +1,27 @@
+<!-- En tu archivo room_update.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Modificar Habitación{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Modificar Habitación</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="id_room_type">Tipo de Habitación:</label>
+            <select class="form-control" id="id_room_type" name="room_type" required>
+                <option value="Individual" {% if object.room_type == "Individual" %}selected{% endif %}>Individual</option>
+                <option value="Doble" {% if object.room_type == "Doble" %}selected{% endif %}>Doble</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}

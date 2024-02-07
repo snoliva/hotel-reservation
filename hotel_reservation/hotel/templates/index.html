@@ -1,0 +1,21 @@
+<!-- En tu archivo index.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Habitaciones Disponibles</h1>
+    <ul>
+    {% for room in rooms %}
+        <li>
+            <strong>{{ room.room_number }}</strong> - {{ room.room_type }}
+            <a href="{% url 'hotel:room_detail' room.pk %}" class="btn btn-info">Ver Detalles</a>
+        </li>
+    {% empty %}
+        <li>No hay habitaciones disponibles en este momento</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
